@@ -1,5 +1,5 @@
 ---
-title: "Shot_Data"
+title: "Alabama Scouting Report"
 output: pdf_document
 date: "2022-10-21"
 ---
@@ -389,12 +389,12 @@ ggdraw(p) +
 
 
 ```{r}
-ohio_schedule <- gamezoneR::gamezone_mbb_team_schedule(team = "Ohio", season = "2021-22")
+#ohio_schedule <- gamezoneR::gamezone_mbb_team_schedule(team = "Ohio", season = "2021-22")
 ```
 
 ```{r, message=FALSE}
-ohio_pbp <- purrr::map_df(ohio_schedule$game_id, 
-                          gamezoneR::gamezone_mbb_pbp, sub_parse = F)
+#ohio_pbp <- purrr::map_df(ohio_schedule$game_id, 
+                          #gamezoneR::gamezone_mbb_pbp, sub_parse = F)
 ```
 
 
