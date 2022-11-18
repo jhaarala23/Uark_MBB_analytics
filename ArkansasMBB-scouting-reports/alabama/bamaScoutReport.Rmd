@@ -398,61 +398,6 @@ ohio_pbp <- purrr::map_df(ohio_schedule$game_id,
 ```
 
 
-```{r}
-player_shots <- shots %>%
-  dplyr::filter(!is.na(loc_x),
-                shooter == "Mark Sears")
 
-hex_data <- calculate_hexbins_from_shots(player_shots, binwidths = c(1.5, 1.5), min_radius_factor = .25, pps_limits = c(0.5, 1.5))
-
-df <- hex_data
-  
-df <- as.data.frame(df[1])
-```
-
-```{r}
-p <- gamezoneR::base_court +
-  geom_polygon(
-    data = df,
-    aes(
-      x = hex_data.adj_x,
-      y = hex_data.adj_y,
-      group = hex_data.hexbin_id, 
-      fill = hex_data.bounded_points_per_shot,
-      color = after_scale(clr_darken(fill, .333))),
-    size = .25) + 
-  scale_fill_distiller(direction = -1, 
-                       palette = "RdBu", 
-                       limits = c(0.5, 1.5), 
-                       breaks = seq(0.5, 1.5, .1),
-                       labels = c("0.5", "0.6", "0.7", "0.8", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5"),
-                       "Points Per Shot") +
-  guides(fill=guide_legend(
-    label.position = 'bottom', 
-    title.position = 'top', 
-    keywidth=.45,
-    keyheight=.15, 
-    default.unit="inch", 
-    title.hjust = .5,
-    title.vjust = 0,
-    label.vjust = 3,
-    nrow = 1)) +
-  theme(text=element_text(size=10), 
-        legend.spacing.x = unit(0, 'cm'), 
-        legend.title=element_text(size=10), 
-        legend.text = element_text(size = rel(0.6)), 
-        legend.margin=margin(-10,0,-1,0),
-        legend.position = 'bottom',
-        legend.box.margin=margin(-30,0,15,0), 
-        plot.title = element_text(hjust = 0.5, vjust = -1, size = 18, face = "bold"),
-        plot.subtitle = element_text(hjust = 0.5, size = 10, vjust = -.5), 
-        plot.caption = element_text(face = "italic", size = 8), 
-        plot.margin = margin(0, -2, 0, -2, "cm"))  +
-  labs(title = "Mark Sears",
-       subtitle = "2021-22 Regular Season")
-
-ggdraw(p) + 
-  theme(plot.background = element_rect(fill="white", color = NA))
-```
 
 
