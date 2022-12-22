@@ -1,7 +1,7 @@
 ---
-title: "Alabama Scouting Report"
+title: "Mississippi State Scouting Report"
 output: pdf_document
-date: "2022-10-21"
+date: "2022-12-21"
 ---
 
 ```{r setup, include=FALSE}
@@ -34,20 +34,21 @@ library(hexbin)
 ```
 
 ```{r}
-ala_schedule <- gamezoneR::gamezone_mbb_team_schedule(team = "Alabama", season = "2022-23")
+mst_schedule <- gamezoneR::gamezone_mbb_team_schedule(team = "Mississippi State", season = "2022-23")
 ```
 
 ```{r, message=FALSE}
-ala_pbp <- purrr::map_df(ala_schedule$game_id, 
+mst_pbp <- purrr::map_df(mst_schedule$game_id, 
                           gamezoneR::gamezone_mbb_pbp, sub_parse = F)
 ```
 
+
 ```{r}
-ala_shots <- ala_pbp %>% 
+mst_shots <- mst_pbp %>% 
   dplyr::filter(!is.na(loc_x))
 
 gamezoneR::base_court +
-  geom_point(data = ala_shots,
+  geom_point(data = mst_shots,
              aes(loc_x, loc_y, color = shot_outcome),
              alpha = 0.8) +
   theme(axis.line = element_blank(),
@@ -66,48 +67,23 @@ gamezoneR::base_court +
         legend.position = 'bottom',
         legend.box.margin = margin(-35, 0, 0, 0),
         plot.margin = margin(5, 0, 5, 0)) +
-  labs(title = "Alabama Crimson Tide Shot Chart",
+  labs(title = "Mississippi State Bulldogs Shot Chart",
        subtitle = "2022-23 college basketball season",
        color = "Outcome",
        caption = "Data: @gamezoneR")
 ```
 
-
-
-```{r}
-ala_shots <- ala_pbp %>% 
-  dplyr::filter(!is.na(loc_x))
-
-gamezoneR::base_court +
-  geom_point(data = ala_shots,
-             aes(loc_x, loc_y, color = shot_outcome),
-             alpha = 0.8) +
-  theme(axis.line = element_blank(),
-        axis.text= element_blank(),
-        axis.ticks = element_blank(),
-        axis.title = element_blank(),
-        panel.background = element_blank(),
-        panel.grid = element_blank(),
-        plot.title = element_text(face = "bold", hjust = 0.5, size = 30/.pt, margin = margin(0, 0, 5, 0)),
-        plot.subtitle = element_text(face = "italic", hjust = 0.5, size = 24/.pt),
-        plot.caption = element_text(face = "italic", hjust = 1, size = 20/.pt, margin = margin(0, 0, 0, 0)),
-        legend.spacing.x = grid::unit(0, 'cm'),
-        legend.title = element_text(size = 20/.pt, face = "bold"),
-        legend.text = element_text(size = 16/.pt),
-        legend.margin = margin(0, 0, 0, 0),
-        legend.position = 'bottom',
-        legend.box.margin = margin(-35, 0, 0, 0),
-        plot.margin = margin(5, 0, 5, 0)) +
-  labs(title = "Alabama Crimson Tide Shot Chart",
-       subtitle = "2022-23 college basketball season",
-       color = "Outcome",
-       caption = "Data: @gamezoneR")
-```
 
 ```{r}
 progressr::with_progress({
   pbp <- gamezoneR::load_gamezone_pbp("2022-23")
 })
+```
+
+```{r}
+library(prismatic)
+library(extrafont)
+library(cowplot)
 ```
 
 ```{r}
@@ -125,7 +101,6 @@ get_shot_distance <- function(x) {
   return(euc.dist(x, c(25, 5.35)))
 }
 ```
-
 
 ```{r}
 shots <- pbp %>%
@@ -166,9 +141,6 @@ shots <- pbp %>%
                   three_pt == 1 & shot_angle > 144 & shot_angle <= 180 ~ 15))
 
 ```
-
-
-
 
 ```{r}
 hex_bounds <- function(x, binwidth) {
@@ -269,10 +241,11 @@ calculate_hexbins_from_shots = function(shots, binwidths, min_radius_factor, pps
 }
 ```
 
+
 ```{r}
 shots <- shots %>%
   dplyr::filter(!is.na(loc_x),
-                event_team == "Alabama")
+                event_team == "Mississippi State")
 
 hex_data <- calculate_hexbins_from_shots(shots, binwidths = c(1.5, 1.5), min_radius_factor = .25, pps_limits = c(0.5, 1.5))
 
@@ -281,10 +254,8 @@ df <- hex_data
 df <- as.data.frame(df[1])
 ```
 
+
 ```{r}
-library(prismatic)
-library(extrafont)
-library(cowplot)
 
 p <- gamezoneR::base_court +
   geom_polygon(
@@ -323,7 +294,7 @@ p <- gamezoneR::base_court +
         plot.subtitle = element_text(hjust = 0.5, size = 10, vjust = -.5), 
         plot.caption = element_text(face = "italic", size = 8), 
         plot.margin = margin(0, -2, 0, -2, "cm"))  +
-  labs(title = "Alabama Crimson Tide",
+  labs(title = "Mississippi State Bulldogs",
        subtitle = "2022-23 Regular Season")
 
 ggdraw(p) + 
@@ -333,7 +304,7 @@ ggdraw(p) +
 ```{r}
 player_shots <- shots %>%
   filter(!is.na(loc_x),
-                shooter == "Noah Gurley")
+                shooter == "Tolu Smith")
 
 hex_data <- calculate_hexbins_from_shots(player_shots, binwidths = c(1.5, 1.5), min_radius_factor = .25, pps_limits = c(0.5, 1.5))
 
@@ -341,6 +312,7 @@ df <- hex_data
   
 df <- as.data.frame(df[1])
 ```
+
 
 ```{r}
 p <- gamezoneR::base_court +
@@ -380,24 +352,11 @@ p <- gamezoneR::base_court +
         plot.subtitle = element_text(hjust = 0.5, size = 10, vjust = -.5), 
         plot.caption = element_text(face = "italic", size = 8), 
         plot.margin = margin(0, -2, 0, -2, "cm"))  +
-  labs(title = "Noah Gurley",
+  labs(title = "Tolu Smith",
        subtitle = "2022-23 Regular Season")
 
 ggdraw(p) + 
   theme(plot.background = element_rect(fill="white", color = NA))
 ```
-
-
-```{r}
-#ohio_schedule <- gamezoneR::gamezone_mbb_team_schedule(team = "Ohio", season = "2021-22")
-```
-
-```{r, message=FALSE}
-#ohio_pbp <- purrr::map_df(ohio_schedule$game_id, 
-                          #gamezoneR::gamezone_mbb_pbp, sub_parse = F)
-```
-
-
-
 
 
