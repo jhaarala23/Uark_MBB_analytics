@@ -34,7 +34,7 @@ library(hexbin)
 ```
 
 ```{r}
-ala_schedule <- gamezoneR::gamezone_mbb_team_schedule(team = "Alabama", season = "2021-22")
+ala_schedule <- gamezoneR::gamezone_mbb_team_schedule(team = "Alabama", season = "2022-23")
 ```
 
 ```{r, message=FALSE}
@@ -67,7 +67,7 @@ gamezoneR::base_court +
         legend.box.margin = margin(-35, 0, 0, 0),
         plot.margin = margin(5, 0, 5, 0)) +
   labs(title = "Alabama Crimson Tide Shot Chart",
-       subtitle = "2021-22 college basketball season",
+       subtitle = "2022-23 college basketball season",
        color = "Outcome",
        caption = "Data: @gamezoneR")
 ```
@@ -99,7 +99,7 @@ gamezoneR::base_court +
         legend.box.margin = margin(-35, 0, 0, 0),
         plot.margin = margin(5, 0, 5, 0)) +
   labs(title = "Alabama Crimson Tide Shot Chart",
-       subtitle = "2021-22 college basketball season",
+       subtitle = "2022-23 college basketball season",
        color = "Outcome",
        caption = "Data: @gamezoneR")
 ```
@@ -324,7 +324,7 @@ p <- gamezoneR::base_court +
         plot.caption = element_text(face = "italic", size = 8), 
         plot.margin = margin(0, -2, 0, -2, "cm"))  +
   labs(title = "Alabama Crimson Tide",
-       subtitle = "2021-22 Regular Season")
+       subtitle = "2022-23 Regular Season")
 
 ggdraw(p) + 
   theme(plot.background = element_rect(fill="white", color = NA))
@@ -332,8 +332,8 @@ ggdraw(p) +
 
 ```{r}
 player_shots <- shots %>%
-  dplyr::filter(!is.na(loc_x),
-                shooter == "Jahvon Quinerly")
+  filter(!is.na(loc_x),
+                shooter == "Noah Gurley")
 
 hex_data <- calculate_hexbins_from_shots(player_shots, binwidths = c(1.5, 1.5), min_radius_factor = .25, pps_limits = c(0.5, 1.5))
 
@@ -380,8 +380,8 @@ p <- gamezoneR::base_court +
         plot.subtitle = element_text(hjust = 0.5, size = 10, vjust = -.5), 
         plot.caption = element_text(face = "italic", size = 8), 
         plot.margin = margin(0, -2, 0, -2, "cm"))  +
-  labs(title = "Jahvon Quinerly",
-       subtitle = "2021-22 Regular Season")
+  labs(title = "Noah Gurley",
+       subtitle = "2022-23 Regular Season")
 
 ggdraw(p) + 
   theme(plot.background = element_rect(fill="white", color = NA))
