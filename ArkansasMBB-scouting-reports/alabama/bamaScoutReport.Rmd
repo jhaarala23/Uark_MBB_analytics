@@ -388,13 +388,8 @@ ggdraw(p) +
 ```
 
 
-```{r}
-#ohio_schedule <- gamezoneR::gamezone_mbb_team_schedule(team = "Ohio", season = "2021-22")
-```
 
-```{r, message=FALSE}
-#ohio_pbp <- purrr::map_df(ohio_schedule$game_id, 
-                          #gamezoneR::gamezone_mbb_pbp, sub_parse = F)
-```
+
+
 
 
