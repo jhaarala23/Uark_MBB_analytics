@@ -179,7 +179,7 @@ average_score_diff(game_id = 401484594)
 ESPN game_id for which to compute time-based average score differential (from perspective of home team).
 
 
-```{r}
+```{r,message=FALSE}
 # switched to the LSU game because the data for the South Carolina game was not there yet
 get_shot_locs(game_id = 401484577)
 ```
