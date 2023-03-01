@@ -10,7 +10,7 @@ output:
 devtools::install_github("lbenz730/ncaahoopR", force = TRUE)
 ```
 
-```{r}
+```{r, message=FALSE}
 library(tidyverse)
 library(backports)
 library(ncaahoopR)
@@ -21,7 +21,7 @@ data(ids)
 view(ids)
 ```
 
-```{r}
+```{r, message=FALSE}
 ark_pbp <- get_pbp("Arkansas", season = "2022-23")
 ```
 
