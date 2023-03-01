@@ -5,7 +5,7 @@ output:
   html_notebook: default
 ---
 
-```{r}
+```{r, message=FALSE}
 # install.packages("devtools")
 devtools::install_github("lbenz730/ncaahoopR", force = TRUE)
 ```
