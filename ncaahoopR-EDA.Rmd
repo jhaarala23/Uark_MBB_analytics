@@ -151,6 +151,9 @@ wp_chart <- function(game_id, home_col, away_col, include_spread = T, show_label
 
 
 
+```{r}
+wp_chart_new(401484608)
+```
 
 
 ```{r}
@@ -205,8 +208,8 @@ game_shot_chart <- function(game_id, heatmap = F){
   if(!is.null(shot_loc_df)) {
     teams <- sort(unique(shot_loc_df$team_name))
     game_title <- paste0(teams[1]," vs. ", teams[2])
-    color <- c(shot_loc_df$color[shot_loc_df$team_name == teams[1]][1],
-               shot_loc_df$color[shot_loc_df$team_name == teams[2]][1])
+    #color <- c(shot_loc_df$color[shot_loc_df$team_name == teams[1]][1],
+               #shot_loc_df$color[shot_loc_df$team_name == teams[2]][1])
     
     date <- format(as.Date(shot_loc_df$date[1]), "%B %d, %Y")
     
@@ -235,7 +238,7 @@ game_shot_chart <- function(game_id, heatmap = F){
                                                  size = 3) +
                              ggplot2::geom_polygon(data = court, aes(x = x, y = y, group = group), col = "gray") +
                              ggplot2::geom_point(alpha = 0.2, size = 1.5) +
-                             ggplot2::scale_color_manual(values = color) +
+                             #ggplot2::scale_color_manual(values = color) +
                              ggplot2::xlab("") +
                              ggplot2::ylab("")  +
                              ggplot2::coord_flip() +
@@ -293,7 +296,7 @@ team_shot_chart <- function(game_ids, team, heatmap = F) {
     team_shots[team_shots$y > 47, "y"] <- 94 - team_shots[team_shots$y > 47, "y"]
     
     ### only pick one color
-    color <- as.character(unique(team_shots$color))[1]
+    #color <- as.character(unique(team_shots$color))[1]
     
     if(heatmap){
       p1 <-
